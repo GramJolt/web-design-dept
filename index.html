@@ -18,13 +18,13 @@
   <div class="header-inner">
     <a href="#hero" class="logo">Hack-Ai</a>
 
-    <label for="nav-toggle" class="hamburger" aria-label="メニューを開く">
+    <label for="nav-toggle" class="hamburger" role="button" tabindex="0" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
       <span></span>
       <span></span>
       <span></span>
     </label>
 
-    <nav class="global-nav">
+    <nav class="global-nav" id="global-nav">
       <a href="#about">会社紹介</a>
       <a href="#departments">事業・部署</a>
       <a href="#products">プロダクト</a>
@@ -208,12 +208,37 @@
 </footer>
 
 <script>
-  // モバイルメニュー内のリンクをタップしたら自動で閉じる
-  document.querySelectorAll('.global-nav a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      document.getElementById('nav-toggle').checked = false;
+  (function () {
+    var toggle = document.getElementById('nav-toggle');
+    var hamburger = document.querySelector('.hamburger');
+
+    function syncExpanded() {
+      var open = toggle.checked;
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      hamburger.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    }
+
+    // チェックボックスの状態が変わるたびに aria-expanded / aria-label を同期
+    toggle.addEventListener('change', syncExpanded);
+
+    // ラベルはネイティブではEnter/Spaceキーで操作できないため、
+    // キーボードのみの利用者向けに明示的にハンドリングする
+    hamburger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        toggle.checked = !toggle.checked;
+        syncExpanded();
+      }
     });
-  });
+
+    // モバイルメニュー内のリンクをタップ/選択したら自動で閉じる
+    document.querySelectorAll('.global-nav a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        toggle.checked = false;
+        syncExpanded();
+      });
+    });
+  })();
 </script>
 </body>
 </html>

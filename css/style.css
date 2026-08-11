@@ -15,10 +15,12 @@
   /* アクセント: Ai = AI（システム・技術・精度） */
   --color-teal: #14A19A;
   --color-teal-text: #0B6E66;
+  --color-teal-deep: #094F48;
 
   /* アクセント: Ai = 愛（人・温度・行動喚起） */
   --color-vermilion: #E4572E;
   --color-vermilion-text: #C43D1F;
+  --color-vermilion-deep: #A3341A;
 
   --font-heading: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
@@ -294,7 +296,9 @@ a {
 }
 
 .badge-active {
-  background: var(--color-teal);
+  /* 稼働中バッジは0.72rem(小さいテキスト)のため、白文字4.5:1以上を確保できる
+     濃いティール（--color-teal-text）を背景に使用する */
+  background: var(--color-teal-text);
   color: #FFFFFF;
 }
 
@@ -362,7 +366,9 @@ a {
 
 .btn-primary {
   display: inline-block;
-  background: var(--color-vermilion);
+  /* 通常サイズの太字テキストのため、白文字4.5:1以上を確保できる
+     濃いバーミリオン（--color-vermilion-text）を背景に使用する */
+  background: var(--color-vermilion-text);
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 700;
@@ -372,7 +378,7 @@ a {
 }
 
 .btn-primary:hover {
-  background: var(--color-vermilion-text);
+  background: var(--color-vermilion-deep);
 }
 
 .contact-note {
