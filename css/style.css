@@ -1,0 +1,463 @@
+/* ==========================================================
+   Hack-Ai Corporate Site
+   コンセプト: エンジニアリングの精度 × 人の温度
+   ========================================================== */
+
+:root {
+  /* ベース */
+  --color-bg: #F7F5F1;
+  --color-ink: #1C2333;
+  --color-muted: #5B6472;
+  --color-border: #E4E0D8;
+  --color-card: #FFFFFF;
+  --color-card-alt: #FDFBF8;
+
+  /* アクセント: Ai = AI（システム・技術・精度） */
+  --color-teal: #14A19A;
+  --color-teal-text: #0B6E66;
+
+  /* アクセント: Ai = 愛（人・温度・行動喚起） */
+  --color-vermilion: #E4572E;
+  --color-vermilion-text: #C43D1F;
+
+  --font-heading: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --section-padding: 96px;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+a {
+  color: var(--color-teal-text);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-teal-text);
+  margin: 0 0 16px;
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+}
+
+.lead-sm {
+  font-size: 1rem;
+  color: var(--color-muted);
+  max-width: 620px;
+}
+
+/* ==========================================================
+   ヘッダー / グローバルナビ
+   ========================================================== */
+
+.nav-toggle {
+  display: none;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 245, 241, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.global-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.global-nav a {
+  color: var(--color-ink);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.global-nav a:hover {
+  color: var(--color-teal-text);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--color-ink);
+  border-radius: 2px;
+}
+
+.nav-scrim {
+  display: none;
+}
+
+/* ==========================================================
+   ヒーロー
+   ========================================================== */
+
+.hero {
+  padding: 120px 0 var(--section-padding);
+}
+
+.hero-inner {
+  max-width: 760px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+}
+
+.scroll-cta {
+  display: inline-block;
+  margin-top: 8px;
+  text-decoration: none;
+  color: var(--color-ink);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-ink);
+  padding-bottom: 2px;
+}
+
+.scroll-cta:hover {
+  color: var(--color-teal-text);
+  border-color: var(--color-teal-text);
+}
+
+/* ==========================================================
+   セクション共通
+   ========================================================== */
+
+.section {
+  padding: var(--section-padding) 0;
+}
+
+.section-alt {
+  background: var(--color-card-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ==========================================================
+   会社紹介
+   ========================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.about-block p {
+  color: var(--color-muted);
+}
+
+.mission-quote {
+  font-weight: 700;
+  color: var(--color-vermilion-text);
+}
+
+/* ==========================================================
+   事業・部署一覧 / プロダクト紹介: カード共通
+   ========================================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.dept-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.dept-card-pending {
+  background: var(--color-card-alt);
+}
+
+.dept-card-head {
+  margin-bottom: 16px;
+}
+
+.dept-desc {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.dept-agents {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-teal-text);
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
+}
+
+.dept-card-pending .dept-agents {
+  color: var(--color-muted);
+}
+
+/* ステータスバッジ */
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.badge-active {
+  background: var(--color-teal);
+  color: #FFFFFF;
+}
+
+.badge-pending {
+  background: transparent;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+/* ==========================================================
+   プロダクト紹介
+   ========================================================== */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.product-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.product-card-feature {
+  border-color: var(--color-teal);
+  border-width: 2px;
+}
+
+.product-card p:not(.product-tag) {
+  color: var(--color-muted);
+}
+
+.product-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-teal-text);
+  margin-bottom: 12px;
+}
+
+.product-card .badge {
+  margin-bottom: 16px;
+}
+
+.product-card h3 {
+  margin-top: 4px;
+}
+
+.products-note {
+  margin-top: 32px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   お問い合わせ
+   ========================================================== */
+
+.contact-inner {
+  max-width: 640px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--color-vermilion);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: var(--radius);
+  margin: 8px 0 24px;
+}
+
+.btn-primary:hover {
+  background: var(--color-vermilion-text);
+}
+
+.contact-note {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* ==========================================================
+   フッター
+   ========================================================== */
+
+.site-footer {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0 0 6px;
+}
+
+.footer-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* ==========================================================
+   レスポンシブ（モバイルナビ）
+   ========================================================== */
+
+@media (max-width: 640px) {
+  :root {
+    --section-padding: 64px;
+  }
+
+  .hero {
+    padding-top: 72px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .global-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(280px, 80vw);
+    background: var(--color-bg);
+    flex-direction: column;
+    gap: 0;
+    padding: 96px 32px;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    border-left: 1px solid var(--color-border);
+    z-index: 101;
+  }
+
+  .global-nav a {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-toggle:checked ~ .site-header .global-nav {
+    transform: translateX(0);
+  }
+
+  .nav-toggle:checked ~ .nav-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 35, 51, 0.4);
+    z-index: 99;
+  }
+
+  .br-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) {
+  .nav-scrim {
+    display: none !important;
+  }
+}
