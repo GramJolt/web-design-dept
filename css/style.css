@@ -326,11 +326,6 @@ a {
   padding: 32px;
 }
 
-.product-card-feature {
-  border-color: var(--color-teal);
-  border-width: 2px;
-}
-
 .product-card p:not(.product-tag) {
   color: var(--color-muted);
 }
