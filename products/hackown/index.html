@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackOwn — 時間と心身の変化を、AIが結びつける自己管理アプリ</title>
+<meta name="description" content="「時間の使い方」と「心身の変化」を記録するだけで、AIがその相関を分析し気づきを届ける自己管理アプリ「HackOwn」。目標を立てれば、達成に向けたアドバイスもAIが提案します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #17161C;
+    --surface: #232130;
+    --surface-alt: #29273A;
+    --hairline: #38354A;
+    --ink: #F1EDE4;
+    --ink-dim: #A8A3B5;
+    --ink-faint: #6F6B80;
+    --time: #62B9CC;
+    --time-dim: #3D5F6B;
+    --vital: #E98A63;
+    --insight: #D7B56E;
+    --font-heading: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.75;
+  }
+
+  h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; margin: 0; }
+
+  a { color: var(--time); }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+  }
+
+  .back-link { color: var(--ink-dim); text-decoration: none; font-size: 0.9rem; }
+  .back-link:hover { color: var(--time); }
+
+  .brand {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--time);
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    padding: 40px 0 72px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 1.02rem;
+    margin: 20px 0 28px;
+    max-width: 34em;
+  }
+
+  .status-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+    color: var(--ink-dim);
+  }
+
+  .status-note { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .hero-shot {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-shot img { display: block; width: 100%; height: auto; }
+
+  section { padding: 56px 0; border-top: 1px solid var(--hairline); }
+
+  .section-head { max-width: 42em; margin-bottom: 32px; }
+
+  .section-head h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+    line-height: 1.5;
+    text-wrap: balance;
+    margin-top: 6px;
+  }
+
+  .section-head p { color: var(--ink-dim); margin-top: 14px; }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 20px;
+  }
+
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 26px;
+  }
+
+  .feature .glyph {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .feature h3 { font-size: 1.02rem; margin-bottom: 8px; }
+  .feature p { color: var(--ink-dim); font-size: 0.92rem; margin: 0; }
+
+  .glyph-time { color: var(--time); }
+  .glyph-vital { color: var(--vital); }
+  .glyph-insight { color: var(--insight); }
+
+  .privacy-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+  }
+
+  .privacy-card h2 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin-bottom: 14px; }
+  .privacy-card p { color: var(--ink-dim); max-width: 38em; }
+  .privacy-card p + p { margin-top: 10px; }
+
+  .footer-cta { text-align: center; padding: 64px 0 40px; }
+
+  .footer-cta h2 {
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .footer-cta p { color: var(--ink-dim); margin: 16px auto 0; max-width: 30em; }
+
+  .footer-meta {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  .footer-meta a { color: var(--ink-faint); text-decoration: none; }
+  .footer-meta a:hover { color: var(--time); }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a href="../../" class="back-link">&larr; Hack-Ai</a>
+    <div class="brand">HackOwn</div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">SELF-MANAGEMENT APP</div>
+      <h1>「時間」と「心身」のあいだに、<br>まだ気づいていない関係がある。</h1>
+      <p class="hero-sub">
+        時間の使い方と心身の変化を記録するだけで、AIがその相関を分析し、
+        あなた自身も気づいていない傾向を届けます。目標を立てれば、
+        達成に向けた具体的なアドバイスもAIが提案します。
+      </p>
+      <div class="status-row">
+        <span class="badge">開発中</span>
+        <span class="status-note">App Store公開に向けて、iPhoneアプリ開発部が開発しています。</span>
+      </div>
+    </div>
+
+    <div class="hero-shot">
+      <img src="../../assets/hackown-weekly.png" alt="HackOwnの週間ビュー画面。時間の使い方をカテゴリ別に色分けした棒グラフで表示している">
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">こんな経験、ありませんか</div>
+      <h2>頑張っているはずなのに、なぜか調子が悪い日がある。</h2>
+      <p>
+        時間の使い方を変えれば良くなる気がするけれど、何が影響しているのかは自分では分かりにくいものです。
+        記録だけして終わるアプリは多くても、その記録から傾向を読み解いてくれるものは多くありません。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">できること</div>
+      <h2>記録は最小限に、気づきはAIから。</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="glyph glyph-time">⏱</div>
+        <h3>時間ブロック記録</h3>
+        <p>カテゴリ別にワンタップで記録。カレンダーから過去の日に後追いで記録することも、日付をまたぐ記録(睡眠など)も1件で入力できます。</p>
+      </div>
+      <div class="feature">
+        <div class="glyph glyph-vital">♡</div>
+        <h3>心身チェックイン</h3>
+        <p>気分・エネルギー・睡眠時間・体調タグを毎日記録。ヘルスケア連携で睡眠時間は自動入力もできます。</p>
+      </div>
+      <div class="feature">
+        <div class="glyph glyph-insight">✦</div>
+        <h3>AIインサイト</h3>
+        <p>時間の使い方と心身の変化の相関をAIが分析し、日本語の気づき文として届けます。傾向として述べるにとどめ、断定的な判断はしません。</p>
+      </div>
+      <div class="feature">
+        <div class="glyph glyph-insight">◎</div>
+        <h3>目標とAIアドバイス</h3>
+        <p>時間や気分・エネルギー・睡眠の目標を立てると、現在の進捗と次の一歩をAIが目標ごとに提案します。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="privacy-card">
+      <div class="eyebrow">プライバシー</div>
+      <h2>AIに送るのは、集計データだけ。</h2>
+      <p>
+        AI分析に送信するのは、時間の内訳や気分・エネルギーのスコアといった構造化データのみです。
+        自由記述のメモは送信しません。
+      </p>
+      <p>
+        Claude APIが未設定・利用できない場合は、統計処理によるルールベースの分析に自動でフォールバックします。
+        見せかけのAIではなく、実際に動く分だけを「AI」と呼んでいます。
+      </p>
+    </div>
+  </section>
+
+  <section class="footer-cta">
+    <h2>公開まで、もう少しお待ちください。</h2>
+    <p>iPhoneアプリ開発部が、App Store公開に向けて開発を進めています。</p>
+    <div class="footer-meta">
+      <span>HackOwn</span>
+      <span>iPhoneアプリ開発部</span>
+      <span><a href="../../#contact">お問い合わせ</a></span>
+      <span><a href="../../">&copy; 2026 Hack-Ai</a></span>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
